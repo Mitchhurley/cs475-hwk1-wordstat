@@ -30,16 +30,14 @@ int main(int argc, char *argv[]) {
 	char curStr[MAX_INPUT_LEN];
 	// declare and initialize the histogram 
 	int histogram[ALPHABET_SIZE] = {0};
+	printf("Enter strings (# to stop):\n");
 	//loop for getting words
 	while (1){
-		printf("Enter strings (# to stop):\n");
+		
 		fgets(curStr, MAX_INPUT_LEN, stdin);
-
+		//TODO ingnore input past 128
 		if (curStr[0] != '#')
 		{
-			//Actually instead of breaking call the 
-			
-		
 			char* token = strtok(curStr, " ");
 			//checks if theres more tokens
 			while (token != NULL){
@@ -54,22 +52,30 @@ int main(int argc, char *argv[]) {
 			}
 		}
 		else{
-			int choice = 0;
-			while (choice != 3){
+			int choice = -1;
+			//while loop for getting menu input
+			while (choice != MENU_INPUT){
 				choice = getMenuOption();
-				if (choice == 4){
-					break;
+
+				if (choice == MENU_EXIT){
+					printf("Exiting...\n");
+					return 0;
 				}
-				//Call menu thing here
+				
+				else if (choice == MENU_STATS){
+					printFreq(vowelCount, consonantCount);
+				}else if (choice == MENU_HISTO){
+					printHisto(histogram);
+				}
+				else printf("Error: unknown option %d", choice);
 			}
-			
+			printf("Enter strings (# to stop):\n");
 		}
 		
 	}
 	
 	
-	printf("Exiting...\n");
-	return 0;
+	
 }
 
 /** Method that updates the histogram
@@ -92,6 +98,7 @@ int * updateHistogram(int array[], char *myWord){
 }
 
 /**
+ * Gives the number of entered vowels
 */
 int countVowels(int arr[]){
 	//just adds all the vowel positions together
@@ -99,13 +106,15 @@ int countVowels(int arr[]){
 }
 
 /**
+*
 */
 int countConsonants(int arr[], int vCount){
 	int total = 0;
 	//totals the number of letters and subtracts the number of vowels
 	for (int i = 0; i < ALPHABET_SIZE; i++){
+		
 		total += arr[i];
 	}
 	total -= vCount;
-	return 0;
+	return total;
 }

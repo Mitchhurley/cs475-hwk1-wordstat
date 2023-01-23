@@ -10,8 +10,8 @@
 
 int getMenuOption() {
 	int opt = 0;
-		
-	printf("*** WORD STATS MENU ***\n");
+
+	printf("\n*** WORD STATS MENU ***\n");
 	printf("Enter %d to print vowel and consonant frequency.\n", MENU_STATS);
 	printf("Enter %d to print histogram.\n", MENU_HISTO);
 	printf("Enter %d to return to inputting more strings.\n", MENU_INPUT);
@@ -21,10 +21,12 @@ int getMenuOption() {
 }
 
 void printFreq(int vCount, int cCount){
-	printf("this is where i would show vowel frequency\n");
-	return 0;
+	int total = vCount + cCount;
+	float vPercentage = ((float)vCount/(float)total) * 100f;
+	float cPercentage = ((float)cCount/(float)total) * 100f;
+	printf("\nVowels = %d (%.2f%%), Consonants = %d (%.2f%%), Total= %d\n",
+	vCount, vPercentage, cCount, cPercentage, total);
 }
-void printHisto(int *histo){
-	printf("this is where i would show all letter frequency\n");
-	return 0;
+void printHistog(int *histo){
+	printHisto(histo);
 }
